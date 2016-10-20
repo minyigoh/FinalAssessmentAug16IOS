@@ -22,7 +22,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eh2-j9-hcq">
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="eh2-j9-hcq" secondAttribute="height" multiplier="3:4" id="AAQ-1r-lzU"/>
+                                    <constraint firstAttribute="width" secondItem="eh2-j9-hcq" secondAttribute="height" multiplier="5:6" id="AAQ-1r-lzU"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYD-xo-jQS">
@@ -35,13 +35,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="evA-eB-cz6">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0o-MS-Hbn">
+                                        <state key="normal" title="Male"/>
+                                        <connections>
+                                            <action selector="onMaleButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DHe-s8-THQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jof-B7-qMc">
+                                        <state key="normal" title="Female"/>
+                                        <connections>
+                                            <action selector="onFemaleButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vib-Cv-GOc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="eh2-j9-hcq" firstAttribute="top" secondItem="eBp-yU-Mta" secondAttribute="bottom" constant="30" id="9JD-2B-vdx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="evA-eB-cz6" secondAttribute="bottom" constant="10" id="AUr-6q-guE"/>
+                            <constraint firstItem="evA-eB-cz6" firstAttribute="top" secondItem="eh2-j9-hcq" secondAttribute="bottom" constant="8" symbolic="YES" id="Ed9-gq-MuK"/>
+                            <constraint firstItem="evA-eB-cz6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GYf-G6-aux"/>
                             <constraint firstItem="eh2-j9-hcq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="HjZ-Xw-EZQ"/>
-                            <constraint firstItem="OYD-xo-jQS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="Vee-cP-grm"/>
+                            <constraint firstItem="OYD-xo-jQS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="Vee-cP-grm"/>
                             <constraint firstItem="eBp-yU-Mta" firstAttribute="top" secondItem="OYD-xo-jQS" secondAttribute="bottom" constant="10" id="Y7z-oc-jhD"/>
                             <constraint firstItem="OYD-xo-jQS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ldP-oT-8ib"/>
                             <constraint firstItem="eBp-yU-Mta" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qhE-gT-v2n"/>
@@ -85,7 +104,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Az7-jo-nCV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Az7-jo-nCV">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="7bq-qW-I9c" detailTextLabel="H7r-Sg-RvI" style="IBUITableViewCellStyleSubtitle" id="zlm-r6-z09">

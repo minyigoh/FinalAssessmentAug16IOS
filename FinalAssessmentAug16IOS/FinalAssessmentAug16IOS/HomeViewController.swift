@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     var listViewController: ListViewController?
     
     var profiles = [Profile]()
+    var filteredProfiles = [Profile]()
     var currentProfile: Profile?
     var index = 0
     
@@ -25,7 +26,9 @@ class HomeViewController: UIViewController {
         listViewController = self.tabBarController?.viewControllers?[1] as? ListViewController
         
         preloadUserDatabase()
-        currentProfile = profiles[0]
+        
+        filteredProfiles = profiles
+        currentProfile = filteredProfiles[0]
         usernameLabel.text = currentProfile!.username
         ageLabel.text = String(describing: currentProfile!.age)
     }
@@ -43,15 +46,29 @@ class HomeViewController: UIViewController {
         profiles.append(user5)
     }
     
+    @IBAction func onMaleButtonPressed(_ sender: UIButton) {
+        filterMaleOnly()
+        index = 0
+        currentProfile = filteredProfiles[0]
+        usernameLabel.text = currentProfile!.username
+        ageLabel.text = String(describing: currentProfile!.age)
+    }
+    
+    @IBAction func onFemaleButtonPressed(_ sender: UIButton) {
+        filterFemaleOnly()
+        index = 0
+        currentProfile = filteredProfiles[0]
+        usernameLabel.text = currentProfile!.username
+        ageLabel.text = String(describing: currentProfile!.age)
+    }
+    
+    
     func filterFemaleOnly() {
-        let femaleProfiles: Profile = self.profiles.filter({ (profile: Profile) -> Bool in
-            switch profile.gender {
-            case "female":
-                return profile
-            default:
-                return false
-            }
-        })
+        filteredProfiles = self.profiles.filter({ $0.gender == "female"})
+    }
+    
+    func filterMaleOnly() {
+        filteredProfiles = self.profiles.filter({ $0.gender == "male"})
     }
     
     @IBAction func swipeGesture(recognizer: UISwipeGestureRecognizer) {
@@ -61,20 +78,20 @@ class HomeViewController: UIViewController {
             listViewController?.tableView?.reloadData()
             print("swiped to the right")
             index += 1
-            if index >= profiles.count {
+            if index >= filteredProfiles.count {
                 print("No more profiles to show")
             } else {
-                currentProfile = profiles[index]
+                currentProfile = filteredProfiles[index]
                 usernameLabel.text = currentProfile!.username
                 ageLabel.text = String(describing: currentProfile!.age)
             }
         case UISwipeGestureRecognizerDirection.left:
             print("swiped to the left")
             index += 1
-            if index >= profiles.count {
+            if index >= filteredProfiles.count {
                 print("No more profiles to show")
             } else {
-                currentProfile = profiles[index]
+                currentProfile = filteredProfiles[index]
                 usernameLabel.text = currentProfile!.username
                 ageLabel.text = String(describing: currentProfile!.age)
             }
