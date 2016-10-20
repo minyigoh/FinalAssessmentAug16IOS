@@ -25,7 +25,9 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        listViewController = self.tabBarController?.viewControllers?[1] as? ListViewController
+        usernameLabel.text = ""
+        ageLabel.text = ""
+        listViewController = self.tabBarController?.viewControllers?[1].childViewControllers.first as? ListViewController
         self.retrieveProfilesFromFirebase()
     }
     
@@ -48,34 +50,8 @@ class HomeViewController: UIViewController {
                     self.ageLabel.text = self.currentProfile!.age
                 })
             }
-            
         })
-        
     }
-    
-//    func preloadUserDatabase() {
-//        let user1 = Profile(username: "Isabelle", age: "28", gender: "female")
-//        let user2 = Profile(username: "Melissa", age: "25", gender: "female")
-//        let user3 = Profile(username: "Bernard", age: "29", gender: "male")
-//        let user4 = Profile(username: "Maya", age: "23", gender: "female")
-//        let user5 = Profile(username: "John", age: "26", gender: "male")
-//        
-//        uploadToFirebase(username: user1.username, age: user1.age, gender: user1.gender)
-//        uploadToFirebase(username: user2.username, age: user2.age, gender: user2.gender)
-//        uploadToFirebase(username: user3.username, age: user3.age, gender: user3.gender)
-//        uploadToFirebase(username: user4.username, age: user4.age, gender: user4.gender)
-//        uploadToFirebase(username: user5.username, age: user5.age, gender: user5.gender)
-//    }
-//    
-//    func uploadToFirebase(username: String, age: String, gender: String) {
-//        let profileDict = ["username": username,
-//                           "age": age,
-//                           "gender": gender]
-//        let profileRef = FIRDatabase.database().reference().child("profiles").childByAutoId()
-//        profileRef.setValue(profileDict)
-//        
-//        print("test")
-//    }
     
     @IBAction func onMaleButtonPressed(_ sender: UIButton) {
         filterMaleOnly()
@@ -107,24 +83,38 @@ class HomeViewController: UIViewController {
         case UISwipeGestureRecognizerDirection.right:
             listViewController?.matchedProfiles.append(currentProfile!)
             listViewController?.tableView?.reloadData()
-            print("swiped to the right")
             index += 1
             if index >= filteredProfiles.count {
-                print("No more profiles to show")
+                let alertController = UIAlertController(title: "NO MORE PROFILES TO SHOW", message: nil, preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
             } else {
-                currentProfile = filteredProfiles[index]
-                usernameLabel.text = currentProfile!.username
-                ageLabel.text = String(describing: currentProfile!.age)
+                let alertController = UIAlertController(title: "LIKED", message: nil, preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.currentProfile = self.filteredProfiles[self.index]
+                    self.usernameLabel.text = self.currentProfile!.username
+                    self.ageLabel.text = self.currentProfile!.age
+                })
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
             }
         case UISwipeGestureRecognizerDirection.left:
-            print("swiped to the left")
             index += 1
             if index >= filteredProfiles.count {
-                print("No more profiles to show")
+                let alertController = UIAlertController(title: "NO MORE PROFILES TO SHOW", message: nil, preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
             } else {
-                currentProfile = filteredProfiles[index]
-                usernameLabel.text = currentProfile!.username
-                ageLabel.text = String(describing: currentProfile!.age)
+                let alertController = UIAlertController(title: "DISLIKED", message: nil, preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.currentProfile = self.filteredProfiles[self.index]
+                    self.usernameLabel.text = self.currentProfile!.username
+                    self.ageLabel.text = self.currentProfile!.age
+                })
+                alertController.addAction(okAction)
+                present(alertController, animated: true, completion: nil)
             }
         default:
             return

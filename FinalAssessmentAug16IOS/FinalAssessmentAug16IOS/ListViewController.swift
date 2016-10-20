@@ -30,5 +30,28 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.detailTextLabel?.text = String(describing: profile.age)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let alertController = UIAlertController(title: "Remove match", message: "Confirm to remove match.", preferredStyle: .actionSheet)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                self.matchedProfiles.remove(at: indexPath.row)
+                self.tableView.reloadData()
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+    }
 
+    @IBAction func onEditButtonPressed(_ sender: UIBarButtonItem) {
+        if tableView.isEditing == true {
+            tableView.setEditing(false, animated: true)
+        } else {
+            tableView.setEditing(true, animated: true)
+        }
+    }
+    
 }
