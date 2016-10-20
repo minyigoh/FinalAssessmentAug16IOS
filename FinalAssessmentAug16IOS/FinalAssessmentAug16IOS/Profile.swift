@@ -8,24 +8,14 @@
 
 import Foundation
 
-enum Gender {
-    case male
-    case female
-}
-
 class Profile {
     var username: String
-    var age: Int
+    var age: String
     var gender: String
     
-    init(username: String, age: Int, gender: Gender) {
+    init(username: String, age: String, gender: String) {
         self.username = username
         self.age = age
-        switch gender {
-        case .male:
-            self.gender = "male"
-        case .female:
-            self.gender = "female"
-        }
+        self.gender = gender
     }
 }

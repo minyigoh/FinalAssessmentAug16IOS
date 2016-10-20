@@ -315,6 +315,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="age" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vB9-tS-WME">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hAI-Bl-KC1">
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hAI-Bl-KC1" secondAttribute="height" multiplier="5:6" id="ZZP-lf-TIR"/>
@@ -322,23 +327,29 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUW-oo-ddm">
                                 <state key="normal" title="Complete Profile"/>
+                                <connections>
+                                    <action selector="onCompleteProfileButtonPressed:" destination="Zaw-Wh-du1" eventType="touchUpInside" id="AY4-pM-Mvu"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="age" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vB9-tS-WME">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="gender" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6RT-oY-KXf">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="6RT-oY-KXf" secondAttribute="trailing" constant="50" id="0sL-cW-btj"/>
+                            <constraint firstItem="6RT-oY-KXf" firstAttribute="top" secondItem="vB9-tS-WME" secondAttribute="bottom" constant="20" id="57q-cy-n6e"/>
                             <constraint firstItem="hAI-Bl-KC1" firstAttribute="centerX" secondItem="6s4-il-kxf" secondAttribute="centerX" id="AsI-od-u6z"/>
                             <constraint firstItem="jUW-oo-ddm" firstAttribute="centerX" secondItem="6s4-il-kxf" secondAttribute="centerX" id="B7w-Zv-8js"/>
                             <constraint firstItem="hAI-Bl-KC1" firstAttribute="centerY" secondItem="6s4-il-kxf" secondAttribute="centerY" id="Dcz-0T-nuT"/>
-                            <constraint firstItem="hAI-Bl-KC1" firstAttribute="top" secondItem="vB9-tS-WME" secondAttribute="bottom" constant="20" id="GVC-hh-gmh"/>
                             <constraint firstItem="jUW-oo-ddm" firstAttribute="top" secondItem="hAI-Bl-KC1" secondAttribute="bottom" constant="20" id="HtA-ew-NRL"/>
-                            <constraint firstItem="vB9-tS-WME" firstAttribute="top" secondItem="u4p-Q7-637" secondAttribute="bottom" constant="20" id="PhY-MA-pT2"/>
+                            <constraint firstItem="vB9-tS-WME" firstAttribute="top" secondItem="u4p-Q7-637" secondAttribute="bottom" constant="20" id="MLW-Mo-1fR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="u4p-Q7-637" secondAttribute="trailing" constant="50" id="RdM-nM-A4p"/>
+                            <constraint firstItem="6RT-oY-KXf" firstAttribute="leading" secondItem="6s4-il-kxf" secondAttribute="leadingMargin" constant="50" id="SSy-Xr-g3d"/>
                             <constraint firstItem="hAI-Bl-KC1" firstAttribute="leading" secondItem="6s4-il-kxf" secondAttribute="leadingMargin" constant="50" id="YbT-ft-aYg"/>
+                            <constraint firstItem="hAI-Bl-KC1" firstAttribute="top" secondItem="6RT-oY-KXf" secondAttribute="bottom" constant="20" id="cn3-qh-Lh4"/>
                             <constraint firstItem="vB9-tS-WME" firstAttribute="centerX" secondItem="u4p-Q7-637" secondAttribute="centerX" id="eHg-4c-Boy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vB9-tS-WME" secondAttribute="trailing" constant="50" id="mXN-NI-gL2"/>
                             <constraint firstItem="u4p-Q7-637" firstAttribute="leading" secondItem="6s4-il-kxf" secondAttribute="leadingMargin" constant="50" id="moz-ci-It9"/>
@@ -346,6 +357,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ageTextField" destination="vB9-tS-WME" id="phk-w1-jan"/>
+                        <outlet property="genderTextField" destination="6RT-oY-KXf" id="004-aZ-9dJ"/>
+                        <outlet property="usernameTextField" destination="u4p-Q7-637" id="ngv-7b-Ji2"/>
                         <segue destination="Hge-Gt-dfp" kind="presentation" identifier="HomeSegue" id="z2h-o8-3vQ"/>
                     </connections>
                 </viewController>
@@ -393,6 +407,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="x7F-vR-mlt"/>
+        <segue reference="z2h-o8-3vQ"/>
     </inferredMetricsTieBreakers>
 </document>

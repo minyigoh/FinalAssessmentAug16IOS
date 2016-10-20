@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
     
@@ -24,27 +26,56 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         listViewController = self.tabBarController?.viewControllers?[1] as? ListViewController
-        
-        preloadUserDatabase()
-        
-        filteredProfiles = profiles
-        currentProfile = filteredProfiles[0]
-        usernameLabel.text = currentProfile!.username
-        ageLabel.text = String(describing: currentProfile!.age)
+        self.retrieveProfilesFromFirebase()
     }
     
-    func preloadUserDatabase() {
-        let user1 = Profile(username: "Isabelle", age: 28, gender: .female)
-        let user2 = Profile(username: "Melissa", age: 25, gender: .female)
-        let user3 = Profile(username: "Bernard", age: 29, gender: .male)
-        let user4 = Profile(username: "Maya", age: 23, gender: .female)
-        let user5 = Profile(username: "John", age: 26, gender: .male)
-        profiles.append(user1)
-        profiles.append(user2)
-        profiles.append(user3)
-        profiles.append(user4)
-        profiles.append(user5)
+    func retrieveProfilesFromFirebase() {
+        let user = FIRAuth.auth()!.currentUser!
+        FIRDatabase.database().reference().child("profiles").observe(.childAdded, with: { (snapshot) in
+            let key = snapshot.key
+            
+            if key != user.uid {
+                FIRDatabase.database().reference().child("profiles").child(key).observe(.value, with: {(profileSnapshot) in
+                    let profileDict = profileSnapshot.value as! [String: String]
+                    let username = profileDict["username"]! as String
+                    let age = profileDict["age"]! as String
+                    let gender = profileDict["gender"]! as String
+                    let profile = Profile(username: username, age: age, gender: gender)
+                    self.profiles.append(profile)
+                    self.filteredProfiles = self.profiles
+                    self.currentProfile = self.filteredProfiles[0]
+                    self.usernameLabel.text = self.currentProfile!.username
+                    self.ageLabel.text = self.currentProfile!.age
+                })
+            }
+            
+        })
+        
     }
+    
+//    func preloadUserDatabase() {
+//        let user1 = Profile(username: "Isabelle", age: "28", gender: "female")
+//        let user2 = Profile(username: "Melissa", age: "25", gender: "female")
+//        let user3 = Profile(username: "Bernard", age: "29", gender: "male")
+//        let user4 = Profile(username: "Maya", age: "23", gender: "female")
+//        let user5 = Profile(username: "John", age: "26", gender: "male")
+//        
+//        uploadToFirebase(username: user1.username, age: user1.age, gender: user1.gender)
+//        uploadToFirebase(username: user2.username, age: user2.age, gender: user2.gender)
+//        uploadToFirebase(username: user3.username, age: user3.age, gender: user3.gender)
+//        uploadToFirebase(username: user4.username, age: user4.age, gender: user4.gender)
+//        uploadToFirebase(username: user5.username, age: user5.age, gender: user5.gender)
+//    }
+//    
+//    func uploadToFirebase(username: String, age: String, gender: String) {
+//        let profileDict = ["username": username,
+//                           "age": age,
+//                           "gender": gender]
+//        let profileRef = FIRDatabase.database().reference().child("profiles").childByAutoId()
+//        profileRef.setValue(profileDict)
+//        
+//        print("test")
+//    }
     
     @IBAction func onMaleButtonPressed(_ sender: UIButton) {
         filterMaleOnly()
